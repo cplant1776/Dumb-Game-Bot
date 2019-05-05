@@ -1,0 +1,10 @@
+# Image paths used for image recognition
+paths:
+  full_health:
+    minion: img/full_health_minion.png
+    boss: img/full_health_boss.png
+    EB: img/full_health_EB.png
+  empty_health:
+    minion: img/empty_health_minion.png
+    boss: img/empty_health_boss.png
+    EB: img/empty_health_EB.png
