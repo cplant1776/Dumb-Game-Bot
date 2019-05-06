@@ -1,5 +1,5 @@
 # Image paths used for image recognition
-paths:
+img_paths:
   full_health:
     minion: img/full_health_minion.png
     boss: img/full_health_boss.png

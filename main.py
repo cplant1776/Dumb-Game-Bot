@@ -10,7 +10,7 @@ from yaml import FullLoader, load
 # ==============================================================
 def convert_config_paths(config):
     """Convert paths from yaml config to local OS format"""
-    for branch in config['paths'].values():
+    for branch in config['img_paths'].values():
         for k, v in branch.items():
             branch[k] = abspath(v)
 
