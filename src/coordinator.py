@@ -1,8 +1,8 @@
 # Standard Library Imports
 # Third Party Imports
 # Local Imports
-from src.farmer.farmer import Farmer
-from src.leveler import Leveler
+from src.actors.farmer import Farmer
+from src.actors.leveler import Leveler
 
 
 class Coordinator:
