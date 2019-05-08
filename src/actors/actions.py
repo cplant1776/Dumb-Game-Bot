@@ -15,6 +15,10 @@ class Actions:
         self.turn_dir = {'left': 'Q',
                          'right': 'E'}
 
+    # =================================
+    # Clicks
+    # =================================
+
     def click(self, pos=(0, 0)):
         """Sends a click command to the target coordinates, pos"""
         pass
@@ -30,6 +34,10 @@ class Actions:
     def click_close_button(self):
         """Clicks the generic close button present on many menus"""
         pass
+
+    # =================================
+    # Movement
+    # =================================
 
     def move(self, direction='forward', duration=1):
         """Moves the character in given direction for the given duration"""
@@ -52,6 +60,22 @@ class Actions:
         """Auto-follows the current target, cuasing the character to constantly move toward them"""
         pass
 
+    # =================================
+    # Targeting
+    # =================================
+
     def target_by_name(self, name=''):
         """Attempts to target entity with given name in character's field of vision"""
+        pass
+
+    def target_nearest_enemy(self):
+        """Targets the enemy closest to the character and in the camera's field of vision"""
+        pass
+
+    # =================================
+    # Waiting
+    # =================================
+
+    def wait_for_non_loading_screen(self):
+        """Periodically searches for non-loading screen elements and returns True when found"""
         pass
