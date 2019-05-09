@@ -2,6 +2,7 @@
 # Third Party Imports
 # Local Imports
 from src.actors.actions import Actions
+from src.config import SETTINGS
 
 
 class InsideActions(Actions):

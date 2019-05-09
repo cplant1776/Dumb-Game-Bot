@@ -3,6 +3,7 @@
 # Local Imports
 from src.actors.farmer import Farmer
 from src.actors.leveler import Leveler
+from src.config import SETTINGS
 
 
 class Coordinator:

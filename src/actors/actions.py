@@ -1,6 +1,13 @@
 # Standard Library Imports
 # Third Party Imports
 # Local Imports
+from src.config import SETTINGS
+
+
+class Actor:
+    """Parent class with common attributes between Leveler and Farmer"""
+    def __init__(self):
+        self.actions = Actions()
 
 
 class Actions:

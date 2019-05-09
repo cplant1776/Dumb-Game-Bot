@@ -1,1 +1,9 @@
+
+.idea/Dumb Game Bot.iml
+.idea/encodings.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/vcs.xml
+.idea/workspace.xml
 .gitattributes
+src/__pycache__/config.cpython-37.pyc
