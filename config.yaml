@@ -8,3 +8,5 @@ img_paths:
     minion: img/empty_health_minion.png
     boss: img/empty_health_boss.png
     EB: img/empty_health_EB.png
+# Number of times the mission is cleared before stopping
+number_of_runs: 5

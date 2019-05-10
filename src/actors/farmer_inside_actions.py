@@ -27,7 +27,7 @@ class InsideActions(Actions):
     # (2) Start Interior Cycle
     # ===========================================
 
-    def interior_cycle(self):
+    def run_interior_cycle(self):
         """Continuously cycles between attack and searching for enemies until mission exit button is found"""
         # Move to target
         # Launch attack cycle till no targets found
