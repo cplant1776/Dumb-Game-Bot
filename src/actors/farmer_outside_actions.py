@@ -39,6 +39,11 @@ class OutsideActions(Actions):
     # (2) Interact with Panel
     # ==========================================
 
+    def interact_with_panel(self):
+        """Walks to panel and then clicks around till dialog pops up"""
+        self.walk_to_panel()
+        self.click_while_searching_for_panel()
+
     def walk_to_panel(self):
         """Moves forward up to the panel bench"""
         pass
@@ -50,6 +55,13 @@ class OutsideActions(Actions):
     # ==========================================
     # (3) Start Mission
     # ==========================================
+
+    def start_mission(self):
+        """Clicks through the dialogs to activate the mission"""
+        self.click_play_button()
+        self.click_accept_architect_mode()
+        self.click_on_reward_type()
+        self.close_architect_dialog()
 
     def click_play_button(self):
         """Clicks the play button to start the mission"""
@@ -68,8 +80,14 @@ class OutsideActions(Actions):
         pass
 
     # ==========================================
-    # (3) Walk to Contact
+    # (4) Walk to Contact
     # ==========================================
+
+    def move_to_contact(self):
+        """Moves from panel to contact"""
+        self.turn_around()
+        self.target_contact()
+        self.move_to_target()
 
     def turn_around(self):
         """Turns the character left 180 degrees"""
@@ -80,8 +98,14 @@ class OutsideActions(Actions):
         pass
 
     # ==========================================
-    # (4) Accept Mission
+    # (5) Accept Mission
     # ==========================================
+
+    def accept_mission(self):
+        """Open contact dialog and accept mission"""
+        self.open_contact_dialog()
+        self.click_accept_mission()
+        self.close_contact_dialog()
 
     def open_contact_dialog(self):
         """Clicks around until contact dialog appears"""
@@ -96,8 +120,15 @@ class OutsideActions(Actions):
         pass
 
     # ==========================================
-    # (5) Enter Mission
+    # (6) Enter Mission
     # ==========================================
+
+    def enter_mission(self):
+        """Clicks around trying to enter mission and moves closer if not found"""
+        mission_found = False
+        while not mission_found:
+            self.click_while_searching_for_panel()
+            self.move_closer_to_entrance()
 
     def click_while_searching_for_entrance(self):
         """Clicks around the edge of the screen searching for loading screen"""
