@@ -1,12 +1,31 @@
 # Image paths used for image recognition
 img_paths:
-  full_health:
-    minion: img/full_health_minion.png
-    boss: img/full_health_boss.png
-    EB: img/full_health_EB.png
-  empty_health:
-    minion: img/empty_health_minion.png
-    boss: img/empty_health_boss.png
-    EB: img/empty_health_EB.png
+  health:
+    full:
+      minion: img/health/full_health_minion.png
+      boss: img/health/full_health_boss.png
+      EB: img/health/full_health_EB.png
+    empty:
+      minion: img/health/empty_health_minion.png
+      boss: img/health/empty_health_boss.png
+      EB: img/health/empty_health_EB.png
+  buttons:
+    exit: img/buttons/exit.png
+    close: img/buttons/close.png
+  mission_text: img/mission_text.png
+#  dialogs:
 # Number of times the mission is cleared before stopping
 number_of_runs: 5
+screen_positions:
+  top:
+    left: 0,0
+    middle: 0,0
+    right: 0,0
+  center:
+    left: 0,0
+    middle: 0,0
+    right: 0,0
+  bottom:
+    left: 0,0
+    middle: 0,0
+    right: 0,0

@@ -2,6 +2,9 @@
 from threading import Thread
 from time import sleep
 # Third Party Imports
+import keyboard
+import pyautogui
+from src.imagesearch import *
 # Local Imports
 from src.config import SETTINGS
 
@@ -28,11 +31,12 @@ class Actions:
     # Clicks
     # =================================
 
-    def click(self, pos=(0, 0)):
+    @staticmethod
+    def click(pos=(0, 0)):
         """Sends a click command to the target coordinates, pos"""
-        pass
+        pyautogui.click(x=pos[0], y=pos[1])
 
-    def click_periodically(self, pos=(0, 0),interval=1, duration=1):
+    def click_periodically(self, pos=(0, 0), interval=1, duration=1):
         """Sends a click command to the given coordinates every given interval for given duration"""
         time_passed = 0
         while time_passed < duration/interval:
@@ -40,29 +44,55 @@ class Actions:
             sleep(interval)
             time_passed += interval
 
+    def click_button(self, target_img):
+        pos = imagesearch(target_img)
+        if pos == -1:
+            print("No image found")
+        else:
+            self.click(pos)
+
     def click_while_searching_for_img(self, target_img, target_area):
         """Clicks an area until it sees the target img pop up"""
         pass
 
-    def search_for_img_and_click(self, target_img):
+    @staticmethod
+    def search_for_img_and_click(target_img):
         """Searches for a target image and clicks at its location"""
-        pass
+        pos = imagesearch(target_img)
+        pyautogui.click(x=pos[0], y=pos[1])
 
     def click_close_button(self):
         """Clicks the generic close button present on many menus"""
-        pass
+        self.click_button(target_img=SETTINGS['img_paths']['buttons']['close'])
 
     def click_exit_button(self):
         """Clicks button to exit mission"""
-        pass
+        self.click_button(target_img=SETTINGS['img_paths']['buttons']['exit'])
+
+    def run_periodic_clicking_thread(self, pos, interval, duration):
+        t = Thread(target=self.click_periodically, args=[pos, interval, duration])
+        t.run()
 
     # =================================
     # Movement
     # =================================
 
-    def move(self, direction='forward', duration=1):
-        """Moves the character in given direction for the given duration"""
-        pass
+    def move(self, direction='forward', duration=0.0):
+        """Moves the character in given direction for the given duration
+
+
+        arguments
+        ---------
+        direction - accepts "left", "right", "forward", "backward" and uses it as dict key for self.move_dir
+        duration - how long to hold the movement key
+        """
+        # Depress proper movement key
+        keyboard.press(self.move_dir[direction])
+
+        # After duration, release key
+        if duration > 0.0:
+            sleep(duration)
+            keyboard.release(self.move_dir[direction])
 
     def turn(self, direction='left', degrees=0):
         """
@@ -75,35 +105,51 @@ class Actions:
         degrees - number of degrees you wish to turn the character
 
         """
-        pass
+        duration_of_turn = self.degrees_to_duration(degrees)
+        # Depress proper turn key
+        keyboard.press(self.turn_dir[direction])
 
-    def move_to_target(self):
-        """Auto-follows the current target, cuasing the character to constantly move toward them"""
+        # After duration, release key
+        if duration_of_turn > 0.0:
+            sleep(duration_of_turn)
+            keyboard.release(self.move_dir[direction])
+
+    @staticmethod
+    def move_to_target():
+        """Auto-follows the current target, causing the character to constantly move toward them"""
+        keyboard.send('f')
         pass
 
     def turn_while_clicking(self, direction, interval, degrees, pos):
         """Turns given number of degrees in given direction while clicking at given position"""
-        duration_of_turn = degrees/72  # 72 degrees ~= 1 sec
-        t = Thread(target=self.click_periodically, args=[pos, interval, duration_of_turn])
-        t.run()
+        duration_of_turn = self.degrees_to_duration(degrees)
+        self.run_periodic_clicking_thread(pos=pos, interval=interval, duration=duration_of_turn)
         self.turn(direction=direction, degrees=degrees)
+
+    @staticmethod
+    def degrees_to_duration(degrees):
+        """Converts a given degrees into a duration given that it takes ~5 sec to turn 360 degrees"""
+        return degrees / 72  # 72 degrees ~= 1 sec
 
     # =================================
     # Targeting
     # =================================
 
-    def target_by_name(self, name=''):
+    @staticmethod
+    def target_by_name(name=''):
         """Attempts to target entity with given name in character's field of vision"""
-        pass
+        keyboard.send('enter, /target_custom_near {}, enter', name)
 
-    def target_nearest_enemy(self):
+    @staticmethod
+    def target_nearest_enemy():
         """Targets the enemy closest to the character and in the camera's field of vision"""
-        pass
+        keyboard.send('ctrl+tab')
 
     # =================================
     # Waiting
     # =================================
 
-    def wait_for_non_loading_screen(self):
+    @staticmethod
+    def wait_for_non_loading_screen():
         """Periodically searches for non-loading screen elements and returns True when found"""
-        pass
+        imagesearch_loop(image=SETTINGS['img_paths']['screens']['loading'])
