@@ -12,10 +12,20 @@ img_paths:
   buttons:
     exit: img/buttons/exit.png
     close: img/buttons/close.png
-  mission_text: img/mission_text.png
-#  dialogs:
+    play: img/buttons/play.png
+    architect: img/buttons/architect.png
+    reward: img/buttons/reward.png
+  dialogs:
+    turn_in_mission: img/dialogs/turn_in_mission.png
+    get_mission_details: img/dialog/get_mission_details.png
+    accept_mission: img/dialog/accept_mission.png
+    rating_popup: img/dialogs/rating_popup.png
+  nav_box: img/nav_box.png
 # Number of times the mission is cleared before stopping
 number_of_runs: 5
+# Name of contact for targeting purposes
+name_of_contact: Steve
+# Generic positions for the mouse to click
 screen_positions:
   top:
     left: 0,0

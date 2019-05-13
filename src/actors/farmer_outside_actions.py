@@ -20,20 +20,19 @@ class OutsideActions(Actions):
         # click and search for contact dialog popup
         self.click_complete_mission_dialog()
         self.close_mission_window()
-        self.close_additional_popup()
-        pass
+        self.close_rating_popup()
 
     def click_complete_mission_dialog(self):
         """Searches for specific dialog on screen and clicks it"""
-        pass
+        self.click_img(SETTINGS['img_paths']['dialogs']['turn_in_mission'])
 
     def close_mission_window(self):
         """Searches for specific dialog on screen and clicks it"""
-        pass
+        self.click_img(SETTINGS['buttons']['close'])
 
-    def close_additional_popup(self):
+    def close_rating_popup(self):
         """Clicks generic close button to close popup window"""
-        pass
+        self.click_img(SETTINGS['img_paths']['dialogs']['rating_popup'])
 
     # ==========================================
     # (2) Interact with Panel
@@ -46,7 +45,7 @@ class OutsideActions(Actions):
 
     def walk_to_panel(self):
         """Moves forward up to the panel bench"""
-        pass
+        self.move(direction='forward', duration=3.0)
 
     def click_while_searching_for_panel(self):
         """Clicks uniformly across the screen searching for the panel dialog"""
@@ -59,25 +58,25 @@ class OutsideActions(Actions):
     def start_mission(self):
         """Clicks through the dialogs to activate the mission"""
         self.click_play_button()
-        self.click_accept_architect_mode()
+        self.click_accept_architect_mode_button()
         self.click_on_reward_type()
         self.close_architect_dialog()
 
     def click_play_button(self):
         """Clicks the play button to start the mission"""
-        pass
+        self.click_img(SETTINGS['img_paths']['buttons']['play'])
 
-    def click_accept_architect_mode(self):
+    def click_accept_architect_mode_button(self):
         """Clicks on Yes for architect prompt"""
-        pass
+        self.click_img(SETTINGS['img_paths']['buttons']['architect'])
 
     def click_on_reward_type(self):
         """Clicks on reward type based on config settings (standard or architect)"""
-        pass
+        self.click_img(SETTINGS['img_paths']['buttons']['reward'])
 
     def close_architect_dialog(self):
         """Clicks generic close button to close popup window"""
-        pass
+        self.click_img(SETTINGS['img_paths']['buttons']['close'])
 
     # ==========================================
     # (4) Walk to Contact
@@ -91,11 +90,11 @@ class OutsideActions(Actions):
 
     def turn_around(self):
         """Turns the character left 180 degrees"""
-        pass
+        self.turn(direction='left', degrees=180)
 
     def target_contact(self):
         """Targets the contact via its name"""
-        pass
+        self.target_by_name(SETTINGS['name_of_contact'])
 
     # ==========================================
     # (5) Accept Mission
@@ -111,13 +110,17 @@ class OutsideActions(Actions):
         """Clicks around until contact dialog appears"""
         pass
 
+    def click_get_mission_details(self):
+        """Clicks on dialog to get the mission details"""
+        self.click_img(SETTINGS)
+
     def click_accept_mission(self):
         """Clicks on the specific mission dialog to accept mission"""
-        pass
+        self.click_img(SETTINGS['img_paths']['dialogs']['accept_mission'])
 
     def close_contact_dialog(self):
         """Clicks generic close button to close popup window"""
-        pass
+        self.click_img(SETTINGS['img_paths']['buttons']['close'])
 
     # ==========================================
     # (6) Enter Mission
@@ -136,5 +139,5 @@ class OutsideActions(Actions):
 
     def move_closer_to_entrance(self):
         """Attempts to move closer to the entrance if couldn't find"""
-        pass
+        self.move(direction='forward', duration=0.5)
 

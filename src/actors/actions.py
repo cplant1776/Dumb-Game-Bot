@@ -44,8 +44,8 @@ class Actions:
             sleep(interval)
             time_passed += interval
 
-    def click_button(self, target_img):
-        pos = imagesearch(target_img)
+    def click_img(self, target_img):
+        pos = imagesearch_loop(target_img, timesample=0.5)
         if pos == -1:
             print("No image found")
         else:
@@ -63,11 +63,11 @@ class Actions:
 
     def click_close_button(self):
         """Clicks the generic close button present on many menus"""
-        self.click_button(target_img=SETTINGS['img_paths']['buttons']['close'])
+        self.click_img(target_img=SETTINGS['img_paths']['buttons']['close'])
 
     def click_exit_button(self):
         """Clicks button to exit mission"""
-        self.click_button(target_img=SETTINGS['img_paths']['buttons']['exit'])
+        self.click_img(target_img=SETTINGS['img_paths']['buttons']['exit'])
 
     def run_periodic_clicking_thread(self, pos, interval, duration):
         t = Thread(target=self.click_periodically, args=[pos, interval, duration])
@@ -152,4 +152,4 @@ class Actions:
     @staticmethod
     def wait_for_non_loading_screen():
         """Periodically searches for non-loading screen elements and returns True when found"""
-        imagesearch_loop(image=SETTINGS['img_paths']['screens']['loading'])
+        imagesearch_loop(image=SETTINGS['img_paths']['screens']['nav_box'])
