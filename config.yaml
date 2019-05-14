@@ -1,3 +1,12 @@
+# Number of times the mission is cleared before stopping
+number_of_runs: 5
+# Name of contact for targeting purposes
+name_of_contact: Steve
+# Max ability number you want Farmer to cycle through
+max_attack_key: 5
+# Amount of time (s) it takes to turn character 360 degrees
+time_for_full_turn: 5
+
 # Image paths used for image recognition
 img_paths:
   health:
@@ -21,10 +30,7 @@ img_paths:
     accept_mission: img/dialog/accept_mission.png
     rating_popup: img/dialogs/rating_popup.png
   nav_box: img/nav_box.png
-# Number of times the mission is cleared before stopping
-number_of_runs: 5
-# Name of contact for targeting purposes
-name_of_contact: Steve
+  no_target: img/no_target.png
 # Generic positions for the mouse to click
 screen_positions:
   top:

@@ -46,7 +46,7 @@ class Actions:
 
     def click_img(self, target_img):
         pos = imagesearch_loop(target_img, timesample=0.5)
-        if pos == -1:
+        if pos[0] == -1:
             print("No image found")
         else:
             self.click(pos)
