@@ -3,7 +3,8 @@ from threading import Thread
 from time import sleep
 # Third Party Imports
 import keyboard
-import pyautogui
+import matplotlib.pyplot as plt
+from shapely.geometry import Point, Polygon
 from src.imagesearch import *
 # Local Imports
 from src.config import SETTINGS
@@ -45,21 +46,60 @@ class Actions:
             time_passed += interval
 
     def click_img(self, target_img):
+        """Searches for a target image and clicks at its location"""
         pos = imagesearch_loop(target_img, timesample=0.5)
         if pos[0] == -1:
             print("No image found")
         else:
             self.click(pos)
 
+    def click_randomly_in_area(self, num_of_clicks, region, interval=0.5, img=None):
+        """
+        Clicks randomly within a passed polygon on the screen, pausing X sec between clicks
+
+        args
+        num_of_clicks - how many times to click the area
+        region - shapely Polygon that contains the search area
+        interval - how often to click
+        img - Optional image to search for. If passed, the function will return when it finds the image
+
+        """
+        # Generate coordinates to click at
+        click_points = self.generate_random_points_in_polygon(num_of_clicks, region)
+        click_points = self.convert_shapely_points_to_tuples(click_points)
+        for point in click_points:
+            # Click point
+            self.click(point)
+            # Check for image
+            if img:
+                pos = imagesearch(img)
+                # Return if image found
+                if pos[0] != -1:
+                    return
+            # Wait
+            sleep(interval)
+
+    @staticmethod
+    def generate_random_points_in_polygon(num_of_points, polygon) -> list:
+        """Returns a list of (num_of_points) (x,y) tuples contained within the given polygon"""
+        list_of_points = []
+        min_x, min_y, max_x, max_y = polygon.bounds
+        counter = 0
+        while counter < num_of_points:
+            point = Point(random.uniform(min_x, max_x), random.uniform(min_y, max_y))
+            if polygon.contains(point):
+                list_of_points.append(point)
+                counter += 1
+        return list_of_points
+
+    @staticmethod
+    def convert_shapely_points_to_tuples(list_of_points) -> list:
+        """Converts a list of Points to a list of (x, y) tuples"""
+        return [(p.x, p.y) for p in list_of_points]
+
     def click_while_searching_for_img(self, target_img, target_area):
         """Clicks an area until it sees the target img pop up"""
         pass
-
-    @staticmethod
-    def search_for_img_and_click(target_img):
-        """Searches for a target image and clicks at its location"""
-        pos = imagesearch(target_img)
-        pyautogui.click(x=pos[0], y=pos[1])
 
     def click_close_button(self):
         """Clicks the generic close button present on many menus"""
@@ -97,7 +137,6 @@ class Actions:
     def turn(self, direction='left', degrees=0):
         """
         Turns a given number of degrees in the given direction
-        It takes ~5 sec to turn 360 degrees. We convert the degrees to turn duration based on this assumption.
 
         arguments
         ---------
@@ -128,8 +167,8 @@ class Actions:
 
     @staticmethod
     def degrees_to_duration(degrees):
-        """Converts a given degrees into a duration given that it takes ~5 sec to turn 360 degrees"""
-        return degrees / 72  # 72 degrees ~= 1 sec
+        """Converts a given degrees into a duration given that it takes X sec to turn 360 degrees"""
+        return degrees / (360 / SETTINGS['time_for_full_turn'])
 
     # =================================
     # Targeting

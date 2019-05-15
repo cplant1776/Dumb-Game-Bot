@@ -31,17 +31,3 @@ img_paths:
     rating_popup: img/dialogs/rating_popup.png
   nav_box: img/nav_box.png
   no_target: img/no_target.png
-# Generic positions for the mouse to click
-screen_positions:
-  top:
-    left: 0,0
-    middle: 0,0
-    right: 0,0
-  center:
-    left: 0,0
-    middle: 0,0
-    right: 0,0
-  bottom:
-    left: 0,0
-    middle: 0,0
-    right: 0,0
