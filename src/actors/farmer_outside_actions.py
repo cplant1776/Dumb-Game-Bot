@@ -49,7 +49,8 @@ class OutsideActions(Actions):
 
     def click_while_searching_for_panel(self):
         """Clicks uniformly across the screen searching for the panel dialog"""
-        pass
+        self.click_randomly_in_area(num_of_clicks=25, region=SETTINGS['regions']['middle'],
+                                    img=SETTINGS['img_paths']['buttons']['play'])
 
     # ==========================================
     # (3) Start Mission
@@ -108,11 +109,12 @@ class OutsideActions(Actions):
 
     def open_contact_dialog(self):
         """Clicks around until contact dialog appears"""
-        pass
+        self.click_randomly_in_area(num_of_clicks=25, region=SETTINGS['regions']['middle'],
+                                    img=SETTINGS['img_paths']['dialogs']['get_mission_details'])
 
     def click_get_mission_details(self):
         """Clicks on dialog to get the mission details"""
-        self.click_img(SETTINGS)
+        self.click_img(SETTINGS['img_paths']['dialogs']['get_mission_details'])
 
     def click_accept_mission(self):
         """Clicks on the specific mission dialog to accept mission"""
@@ -135,7 +137,8 @@ class OutsideActions(Actions):
 
     def click_while_searching_for_entrance(self):
         """Clicks around the edge of the screen searching for loading screen"""
-        pass
+        self.click_randomly_in_area(num_of_clicks=25, region=SETTINGS['regions']['top-outside'],
+                                    img=SETTINGS['img_paths']['load_screen'])
 
     def move_closer_to_entrance(self):
         """Attempts to move closer to the entrance if couldn't find"""

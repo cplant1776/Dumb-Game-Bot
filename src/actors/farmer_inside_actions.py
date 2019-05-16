@@ -69,7 +69,6 @@ class InsideActions(Actions):
         for i in range(1, SETTINGS['max_attack_key'] + 1):
             keyboard.send(str(i))
             time.sleep(0.5)
-        pass
 
     @staticmethod
     def target_was_found():
@@ -86,16 +85,37 @@ class InsideActions(Actions):
 
     def search_cycle(self):
         """Attempts to find any remaining enemies on the map by moving around it"""
-        # Turn left 360 degrees while searching for target in a separate thread
-        t = Thread(target=self.turn, args=['left', 360])
-        t.run()
-        # If target found, return
+        # Turn left 360 degrees while searching for target
+        target_found = self.turn_and_search(direction='left', degrees=360,
+                                            target_images=SETTINGS['img_paths']['health_full'])
+        # Keep moving around map until a new target is located
+        while not target_found:
+            # turn left 120 degrees while searching for target
+            target_found = self.turn_and_search(direction='left', degrees=120,
+                                                target_images=SETTINGS['img_paths']['health_full'])
+            self.move(direction='forward', duration=2)
+
+    def turn_and_search(self, direction, degrees, target_images) -> bool:
+        """Turn given direction for given number of degrees while searching for given target images"""
+        duration_of_turn = self.degrees_to_duration(degrees)
+        # Depress proper turn key
+        keyboard.press(self.turn_dir[direction])
+
         start = time.time()
-        while time.time() < start + SETTINGS['time_for_full_turn']:
-            # TODO: Refactor inner loop to a function that returns if pos != 1
-            for enemy_type in SETTINGS['img_paths']['health']['full'].values():
-                pos = imagesearch(enemy_type)
-        # else, loop while no target found (1) turn left 120 degrees (2) move forward ~2 sec (3) search for target
+        img_found = False
+        # Search for target images while turning
+        while (time.time() < start + duration_of_turn) or img_found is False:
+            # Search for enemy
+            self.target_nearest_enemy()
+            for img in target_images:
+                pos = imagesearch(img)
+                if pos[0] != -1:
+                    img_found = True
+            # Wait before next search
+            time.sleep(SETTINGS['time_between_image_searches'])
+        # Release key after timeout or if img found before then
+        keyboard.release(self.move_dir[direction])
+        return img_found
 
     # ===========================================
     # (2.c) Search for Mission Completion

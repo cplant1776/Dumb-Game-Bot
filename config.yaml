@@ -6,18 +6,18 @@ name_of_contact: Steve
 max_attack_key: 5
 # Amount of time (s) it takes to turn character 360 degrees
 time_for_full_turn: 5
-
+#
+time_between_image_searches: 0.5
 # Image paths used for image recognition
 img_paths:
-  health:
-    full:
-      minion: img/health/full_health_minion.png
-      boss: img/health/full_health_boss.png
-      EB: img/health/full_health_EB.png
-    empty:
-      minion: img/health/empty_health_minion.png
-      boss: img/health/empty_health_boss.png
-      EB: img/health/empty_health_EB.png
+  health_full:
+    minion: img/health/full_health_minion.png
+    boss: img/health/full_health_boss.png
+    EB: img/health/full_health_EB.png
+  health_empty:
+    minion: img/health/empty_health_minion.png
+    boss: img/health/empty_health_boss.png
+    EB: img/health/empty_health_EB.png
   buttons:
     exit: img/buttons/exit.png
     close: img/buttons/close.png
@@ -26,8 +26,10 @@ img_paths:
     reward: img/buttons/reward.png
   dialogs:
     turn_in_mission: img/dialogs/turn_in_mission.png
-    get_mission_details: img/dialog/get_mission_details.png
-    accept_mission: img/dialog/accept_mission.png
+    get_mission_details: img/dialogs/get_mission_details.png
+    accept_mission: img/dialogs/accept_mission.png
     rating_popup: img/dialogs/rating_popup.png
   nav_box: img/nav_box.png
   no_target: img/no_target.png
+  load_screen: img/load_screen.png
+

@@ -3,7 +3,6 @@ from threading import Thread
 from time import sleep
 # Third Party Imports
 import keyboard
-import matplotlib.pyplot as plt
 from shapely.geometry import Point, Polygon
 from src.imagesearch import *
 # Local Imports
@@ -75,9 +74,10 @@ class Actions:
                 pos = imagesearch(img)
                 # Return if image found
                 if pos[0] != -1:
-                    return
+                    return True
             # Wait
             sleep(interval)
+        return False
 
     @staticmethod
     def generate_random_points_in_polygon(num_of_points, polygon) -> list:
@@ -97,9 +97,10 @@ class Actions:
         """Converts a list of Points to a list of (x, y) tuples"""
         return [(p.x, p.y) for p in list_of_points]
 
-    def click_while_searching_for_img(self, target_img, target_area):
-        """Clicks an area until it sees the target img pop up"""
-        pass
+    def click_while_searching_for_img(self, num_of_clicks, target_img, region):
+        """Clicks an area until it sees the target img pop up. Returns True if successful and False if not"""
+        img_found = self.click_randomly_in_area(num_of_clicks=num_of_clicks, region=region, img=target_img)
+        return True if img_found else False
 
     def click_close_button(self):
         """Clicks the generic close button present on many menus"""
@@ -157,7 +158,6 @@ class Actions:
     def move_to_target():
         """Auto-follows the current target, causing the character to constantly move toward them"""
         keyboard.send('f')
-        pass
 
     def turn_while_clicking(self, direction, interval, degrees, pos):
         """Turns given number of degrees in given direction while clicking at given position"""

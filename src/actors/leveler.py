@@ -10,6 +10,3 @@ class Leveler(Actor):
 
     def __init__(self):
         super().__init__()
-
-    # ===============================================
-    # (1) Close
