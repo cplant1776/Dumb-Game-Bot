@@ -14,6 +14,6 @@ PyScreeze==0.1.20
 python-dateutil==2.8.0
 python3-xlib==0.15
 PyTweening==1.0.3
-PyYAML==5.1
+PyYAML==5.4
 Shapely==1.6.4.post1
 six==1.12.0
